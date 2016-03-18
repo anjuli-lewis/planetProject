@@ -5,7 +5,9 @@
  */
 package planetproject;
 
+import java.awt.BorderLayout;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -17,8 +19,13 @@ public class Main {
         JFrame frame=new JFrame();
         //makes it so the program stops when the window closes (this is the default)
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //this sets all the componets to at or above their preffered size, depending on the size of the window. You could use a setSize() method, but then it wouldn't be dynamic
+        //creates a new panel, that automatically uses the Flow Layout. Could create the layout as well.
+        //JPanel panel =new JPanel();
+        //adds the panel to the frame
+        frame.setContentPane(new Universe());
+        //this sets all the componets to at or above their preffered size, depending on the size of the window. More dynamis than setSize()
         frame.pack();
+        frame.setLocationRelativeTo(null);
         //makes the frame appear
         frame.setVisible(true);
         
