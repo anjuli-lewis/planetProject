@@ -2,6 +2,12 @@ package planetproject;
 
 import edu.princeton.cs.In;
 import edu.princeton.cs.StdDraw;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
 import javax.swing.JPanel;
 
 /**
@@ -27,11 +33,17 @@ public class Universe extends JPanel {
     private final int N;             // number of bodies
     private final Body[] orbs;       // array of N bodies
 
-    
-/**
- * Reads a file to get the size of the universe, how many bodies are in the universe and the details of those bodies
- * @param fileName the file with the data for the universe
- */
+    public Universe() {
+        radius=10;
+        N=10;
+        orbs=new Body[10];
+    }
+    /**
+     * Reads a file to get the size of the universe, how many bodies are in the
+     * universe and the details of those bodies
+     *
+     * @param fileName the file with the data for the universe
+     */
     public Universe(String fileName) {
 
         // the authors' version reads from standard input
@@ -63,7 +75,9 @@ public class Universe extends JPanel {
     } // Universe()
 
     /**
-     * Increases the time of the simulation, moving the bodies in the universe accordingly
+     * Increases the time of the simulation, moving the bodies in the universe
+     * accordingly
+     *
      * @param dt how fast time is moving
      */
     public void increaseTime(double dt) {
@@ -98,15 +112,21 @@ public class Universe extends JPanel {
         } // for
     } // draw()
 
-    // client to simulate a universe
-    public static void main(String[] args) {
-        Universe newton = new Universe( args[1] );
-        double dt = Double.parseDouble(args[0]);
-        while (true) {
-            StdDraw.clear();
-            newton.increaseTime(dt);
-            newton.draw();
-            StdDraw.show(10);
-        } // while
-    } // main( String [] )
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g.create();
+        Rectangle shape = new Rectangle(0, 0, 100, 100);
+        int x = ((getWidth() - shape.width) / 2);
+        int y = ((getHeight() - shape.height) / 2);
+        shape.x = x;
+        shape.y = y;
+        g2d.setColor(Color.BLUE);
+        g2d.setTransform(AffineTransform.getRotateInstance(Math.toRadians(0), x + (shape.width / 2), y + (shape.height / 2)));
+        g2d.fill(shape);
+    }
+    @Override
+   public Dimension getPreferredSize() {
+           return new Dimension(400,400);
+    }
 } // Universe
