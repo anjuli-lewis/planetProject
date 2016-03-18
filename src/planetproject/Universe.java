@@ -2,6 +2,7 @@ package planetproject;
 
 import edu.princeton.cs.In;
 import edu.princeton.cs.StdDraw;
+import javax.swing.JPanel;
 
 /**
  * ****************************************************************************
@@ -20,7 +21,7 @@ import edu.princeton.cs.StdDraw;
  *
  *****************************************************************************
  */
-public class Universe {
+public class Universe extends JPanel {
 
     private final double radius;     // radius of universe
     private final int N;             // number of bodies
