@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 public class Main {
     public static void main(String[] args) {
         //creates a new frame
-        JFrame frame=new JFrame();
+        JFrame frame=new UniverseFrame();
         //makes it so the program stops when the window closes (this is the default)
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //creates a new panel, that automatically uses the Flow Layout. Could create the layout as well.
