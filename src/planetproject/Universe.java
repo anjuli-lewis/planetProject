@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import javax.swing.JPanel;
 
@@ -27,7 +29,7 @@ import javax.swing.JPanel;
  *
  *****************************************************************************
  */
-public class Universe extends JPanel {
+public class Universe extends JPanel implements ActionListener {
 
     private final double radius;     // radius of universe
     private final int N;             // number of bodies
@@ -128,5 +130,10 @@ public class Universe extends JPanel {
     @Override
    public Dimension getPreferredSize() {
            return new Dimension(400,400);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println("a");
     }
 } // Universe
