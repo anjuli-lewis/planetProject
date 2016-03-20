@@ -17,13 +17,16 @@ public class Main {
     public static void main(String[] args) {
         //creates a new frame
         JFrame frame=new UniverseFrame();
-        //makes it so the program stops when the window closes (this is the default)
+        //makes it so the program stops when the window closes 
+        //(this is the default)
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //creates a new panel, that automatically uses the Flow Layout. Could create the layout as well.
+        //creates a new panel, that automatically uses the Flow Layout. 
+        //Could create the layout as well.
         //JPanel panel =new JPanel();
         //adds the panel to the frame
-        frame.setContentPane(new Universe());
-        //this sets all the componets to at or above their preffered size, depending on the size of the window. More dynamis than setSize()
+        frame.setContentPane(new Universe("2body.txt"));
+        //this sets all the componets to at or above their preffered size, 
+        //depending on the size of the window. More dynamis than setSize()
         frame.pack();
         frame.setLocationRelativeTo(null);
         //makes the frame appear
