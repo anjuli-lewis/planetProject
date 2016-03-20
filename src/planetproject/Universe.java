@@ -1,15 +1,13 @@
 package planetproject;
 
 import edu.princeton.cs.In;
-import edu.princeton.cs.StdDraw;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.AffineTransform;
+import java.awt.geom.Dimension2D;
 import javax.swing.JPanel;
 
 /**
@@ -57,9 +55,6 @@ public class Universe extends JPanel implements ActionListener {
 
         // the set scale for drawing on screen
         radius = inputStream.readDouble();
-        StdDraw.setXscale(-radius, +radius);
-        StdDraw.setYscale(-radius, +radius);
-
         // read in the N bodies
         orbs = new Body[N];
         for (int i = 0; i < N; i++) {
@@ -109,31 +104,26 @@ public class Universe extends JPanel implements ActionListener {
      * Goes through all the bodies and calls their draw function
      */
     public void draw() {
-        for (int i = 0; i < N; i++) {
-            orbs[i].draw();
-        } // for
+        
     } // draw()
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g.create();
-        Rectangle shape = new Rectangle(0, 0, 100, 100);
-        int x = ((getWidth() - shape.width) / 2);
-        int y = ((getHeight() - shape.height) / 2);
-        shape.x = x;
-        shape.y = y;
-        g2d.setColor(Color.BLUE);
-        g2d.setTransform(AffineTransform.getRotateInstance(Math.toRadians(0), x + (shape.width / 2), y + (shape.height / 2)));
-        g2d.fill(shape);
+        for (int i = 0; i < N; i++) {
+            Shape s=orbs[i].draw(orbs[i].getMass());
+            g2d.draw(s);
+            g2d.fill(s);
+        } // for
     }
     @Override
    public Dimension getPreferredSize() {
-           return new Dimension(400,400);
+           return new Dimension2D.Double(radius,radius);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("a");
+        
     }
 } // Universe
