@@ -1,6 +1,8 @@
 package planetproject;
-import edu.princeton.cs.In;
-import edu.princeton.cs.StdDraw;
+import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
 
 /******************************************************************************
  *  Compilation:  javac Body.java
@@ -16,6 +18,7 @@ public class Body {
     private Vector r;      // position
     private Vector v;      // velocity
     private final double mass;   // mass
+
 
     public Body(Vector r, Vector v, double mass) {
         this.r = r;
@@ -38,15 +41,19 @@ public class Body {
         return delta.direction().times(F);
     } // forceFrom( Body )
 
-    public void draw() {
-        StdDraw.setPenRadius(0.025);
-        StdDraw.point(r.cartesian(0), r.cartesian(1));
+    public void draw(Graphics2D g2d, AffineTransform transform) {
+        Shape e=new Ellipse2D.Double(r.cartesian(0), r.cartesian(1), mass, mass);
+        Shape s=transform.createTransformedShape(e);
+        g2d.fill(s);
     } // draw()
-
-    // this method is only needed if you want to change the size of the bodies
-    public void draw(double penRadius) {
-        StdDraw.setPenRadius(penRadius);
-        StdDraw.point(r.cartesian(0), r.cartesian(1));
-    } // draw( double )
+    
+    public double getMass() {
+        return mass;
+    }
+    
+    @Override
+    public String toString() {
+        return "[P"+r+"V"+v+"Mass "+mass+"]";
+    }
 
 } // Body
