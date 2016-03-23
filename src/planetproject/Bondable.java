@@ -50,7 +50,9 @@ public abstract class Bondable implements Comparable<Bondable> {
         g2d.fill(s);
     }
     public void move(double dt) {
-        position = position.plus(velocity);
+        dt=dt/1000;
+        Vector v=velocity.times(dt);
+        position = position.plus(v);
     } // move( Vector, double )
     
         /**
