@@ -25,7 +25,7 @@ public class UniverseFrame extends JFrame {
         this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Container pane = this.getContentPane();
-        Universe panel = new Universe();
+        Universe panel = new Universe(time);
         pane.add(panel);
         this.timer = new Timer(time, panel);
         timer.start();
