@@ -1,5 +1,7 @@
 package planetproject;
+import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 
 /******************************************************************************
@@ -39,19 +41,19 @@ public class Body {
         return delta.direction().times(F);
     } // forceFrom( Body )
 
-    public Shape draw() {
-        Shape ret=new Ellipse2D.Double(r.cartesian(0), r.cartesian(1), 0.025, 0.025);
-        return ret;
+    public void draw(Graphics2D g2d, AffineTransform transform) {
+        Shape e=new Ellipse2D.Double(r.cartesian(0), r.cartesian(1), mass, mass);
+        Shape s=transform.createTransformedShape(e);
+        g2d.fill(s);
     } // draw()
-
-    // this method is only needed if you want to change the size of the bodies
-    public Shape draw(double radius) {
-        Shape ret=new Ellipse2D.Double(r.cartesian(0), r.cartesian(1), radius, radius);
-        return ret;
-    } // draw( double )
     
     public double getMass() {
         return mass;
+    }
+    
+    @Override
+    public String toString() {
+        return "[P"+r+"V"+v+"Mass "+mass+"]";
     }
 
 } // Body
