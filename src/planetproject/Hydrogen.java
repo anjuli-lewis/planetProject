@@ -54,6 +54,6 @@ public class Hydrogen extends Bondable {
    
     @Override
     public String toString() {
-        return "H: "+position+":"+((radius*2)%10)+1;
+        return "H: "+position+":"+radius;
     }
 }
