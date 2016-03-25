@@ -18,7 +18,7 @@ public class Compound extends Bondable {
         this.energy=energy;
         Bondable max=elements[0];
         radius=0;
-        for(int i=1;i<elements.length;i++) {
+        for(int i=0;i<elements.length;i++) {
             if(max.compareTo(elements[i])<1) {
                 max=elements[i];
             }
@@ -37,6 +37,6 @@ public class Compound extends Bondable {
         for(Bondable e: elements) {
             ret+=e.toString()+", ";
         }
-        return ret+")";
+        return ret+")r:"+radius;
     }
 }
