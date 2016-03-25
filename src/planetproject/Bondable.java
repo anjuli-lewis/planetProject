@@ -38,14 +38,15 @@ public abstract class Bondable implements Comparable<Bondable> {
     public boolean intersects(Bondable e) {
         double x2=e.getPosition().cartesian(0);
         double y2=e.getPosition().cartesian(1);
-        double r2=e.getRadius();
+        double r2=e.getRadius()/50;
+        double r=this.radius/50;
         double distance=Math.pow((position.cartesian(0)-x2), 2)+Math.pow((position.cartesian(1)-y2),2);
-        double difference=Math.pow((radius-r2), 2);
-        double sum=Math.pow((radius+r2), 2);
+        double difference=Math.pow((r-r2), 2);
+        double sum=Math.pow((r+r2), 2);
         return (difference<=distance&&sum>=distance);
     }
     public void draw (Graphics2D g2d, AffineTransform transform) {
-        Ellipse2D.Double e=new Ellipse2D.Double(position.cartesian(0),position.cartesian(1), (radius*2)/50, (radius*2)/50);
+        Ellipse2D.Double e=new Ellipse2D.Double(position.cartesian(0),position.cartesian(1), (radius/50)*2, (radius/50)*2);
         Shape s=transform.createTransformedShape(e);
         g2d.fill(s);
     }
