@@ -1,13 +1,11 @@
 package planetproject;
 
-import edu.princeton.cs.In;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
@@ -30,21 +28,20 @@ import javax.swing.JPanel;
 public class Universe extends JPanel implements ActionListener {
 
     //private final int diameter;     // diameter of universe
-    private final int N;             // number of bodies
-    private final Bondable[] orbs;       // array of N bodies
+    private int N;             // number of bodies
+    private Bondable[] orbs;       // array of N bodies
     private double time;
 
     public Universe(double time) {
-        orbs = new Bondable[5];
+        orbs = new Bondable[10];
         N = orbs.length;
         //radius=orbs.length*2;
         this.time = time;
-        double neg = 0;
         double a1 = 0;
         double a2 = 0;
         for (int i = 0; i < orbs.length; i++) {
-            a1 = (-1 + (2 * Math.random())) / 100;
-            a2 = (-1 + (2 * Math.random())) / 100;
+            a1 = (-1 + (2 * Math.random()));
+            a2 =(-1 + (2 * Math.random()));
             double[] arrA = {a1, a2};
             orbs[i] = new Hydrogen(new Vector(arrA));
         }
@@ -80,12 +77,37 @@ public class Universe extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        ArrayList<Bondable> orbs2= new ArrayList<>(N);
+        for(Bondable b:orbs) {
+            orbs2.add(b);
+        }
+        //orbs2.sort();
+        for(int i=0;i<orbs2.size();i++) {
+            Bondable b=orbs2.get(i);
+            if(!(b instanceof Compound)) {
+               for(int z=(i+1);z<orbs2.size();z++) {
+                   Bondable b2=orbs2.get(z);
+                   if(b.intersects(b2)) {
+                       Compound c=b.bond(b2);
+                       orbs2.remove(i);
+                       orbs2.remove(b2);
+                       orbs2.add(0,c);
+                   }
+               }
+            }
+        }
+        Bondable [] arr=new Bondable[orbs2.size()];
+        for(int i=0;i<orbs2.size();i++) {
+            arr[i]=orbs2.get(i);
+        }
+        orbs=arr;
+        N=orbs.length;
         // move the bodies
-        for (int i = 0; i < N; i++) {
-            orbs[i].move(time);
-            double diameter=(orbs[i].getRadius()*2)/50;
-            Vector v = orbs[i].getPosition();
-            Vector v2 = orbs[i].getVelocity();
+        for (int f = 0; f < N; f++) {
+            orbs[f].move(time);
+            double diameter=(orbs[f].getRadius()*2)/50;
+            Vector v = orbs[f].getPosition();
+            Vector v2 = orbs[f].getVelocity();
             double x = v.cartesian(0);
             double y = v.cartesian(1);
             double x2 = v2.cartesian(0);
@@ -114,9 +136,8 @@ public class Universe extends JPanel implements ActionListener {
             double[] r2 = {x2, y2};
             Vector n = new Vector(r);
             Vector n2 = new Vector(r2);
-            orbs[i].setPosition(n);
-            orbs[i].setVelocity(n2);
-            System.out.println();
+            orbs[f].setPosition(n);
+            orbs[f].setVelocity(n2);
             this.repaint();
         }
     } // Universe
