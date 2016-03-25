@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 public class Main {
     public static void main(String[] args) {
         //creates a new frame
-        JFrame frame=new UniverseFrame(500);
+        JFrame frame=new UniverseFrame(50);
         
     }
 }

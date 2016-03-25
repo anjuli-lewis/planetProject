@@ -15,16 +15,8 @@ public class Hydrogen extends Bondable {
     public Hydrogen(Vector p) {
         position=p;
         radius=1;
-        double a1=Math.random();
-        double a2=Math.random();
-        double neg=Math.random();
-        if(neg>.5) {
-            a1=-1*a1;
-        }
-        neg=Math.random();
-        if(neg>.5) {
-            a2=-1*a2;
-        }
+        double a1 = (-1 + (2 * Math.random()) ) / 10;
+        double a2=(-1 + (2 * Math.random()) ) / 10;
         double [] arr={a1,a2};
         velocity=new Vector(arr);
         electrons=1;
@@ -62,6 +54,6 @@ public class Hydrogen extends Bondable {
    
     @Override
     public String toString() {
-        return "H: "+position+":"+((radius*2)%10)+1;
+        return "H: "+position+":"+radius;
     }
 }
